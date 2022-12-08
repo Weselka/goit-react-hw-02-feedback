@@ -1,50 +1,72 @@
 import { Component } from 'react';
 
-import { CardText, CardTitle, Button } from './Feedback.styled';
+import { Card, CardHeader, CardTitle } from './Feedback.styled';
+import { FeedbackOptions } from 'components';
+import { Statistics } from 'components';
 
 class Feedback extends Component {
+  // static defoultProps = {};
+  // static propTypes = {};
+
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
+    total: 0,
+    positivePercentage: 0,
+    visible: false,
   };
 
-  handleIncrementGood = event => {
-    console.log('click on Good');
-    console.log(event.target);
+  toggle = () => {
+    this.setState(prevState => ({ visible: !prevState.visible }));
   };
-  handleIncrementNeutral = event => {
-    console.log('click on Neutral');
+
+  countPositiveFeedback = () => {
+    this.setState(prevState => ({ good: prevState.good + 1 }));
   };
-  handleIncrementBad = event => {
-    console.log('click on Bad');
+
+  countNeutralFeedback = () => {
+    this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
   };
-  // constructor() {
-  //   super();
-  //   this.handleIncrement = this.handleIncrement.bind(this);
-  //   this.handleDecrement = this.handleDecrement.bind(this);
-  // }
+
+  countNegativeFeedback = () => {
+    this.setState(prevState => ({ bad: prevState.bad + 1 }));
+  };
+
+  countTotalFeedback = () => {
+    this.setState(prevState => ({
+      total: prevState.bad + prevState.neutral + prevState.neutral,
+    }));
+  };
+
+  countPositiveFeedbackPercentage = () => {};
 
   render() {
-    const { good, neutral, bad } = this.props;
     return (
-      <div>
-        <CardTitle>Please leave feedback</CardTitle>
+      <Card>
+        <CardHeader>
+          <CardTitle>Please leave feedback</CardTitle>
+        </CardHeader>
+        <FeedbackOptions
+          onCountPositive={this.countPositiveFeedback}
+          onCountNeutral={this.countNeutralFeedback}
+          onCountNegative={this.countNegativeFeedback}
+          onLeaveFeedback={this.countNegativeFeedback}
+        />
 
-        <Button type="button" onClick={this.handleIncrementGood}>
-          Good
-        </Button>
-        <Button type="button" onClick={this.handleIncrementNeutral}>
-          Neutral
-        </Button>
-        <Button type="button" onClick={this.handleIncrementBad}>
-          Bad
-        </Button>
-        <CardText>Statistics</CardText>
-        <CardText>Good {good}</CardText>
-        <CardText>Neutral {neutral}</CardText>
-        <CardText>Bad {bad}</CardText>
-      </div>
+        <div>
+          {this.state.visible && (
+            <Statistics
+              title="Statistics"
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.state.total}
+              positivePercentage={this.state.positivePercentage}
+            />
+          )}
+        </div>
+      </Card>
     );
   }
 }
