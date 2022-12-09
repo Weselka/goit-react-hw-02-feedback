@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ControlsBox = styled.div`
+export const ControlsBox = styled.ul`
   display: flex;
   justify-content: center;
   margin-top: ${props => props.theme.spacing(3)};

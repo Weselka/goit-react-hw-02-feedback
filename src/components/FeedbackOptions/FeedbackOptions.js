@@ -1,19 +1,21 @@
 import { ControlsBox, Button } from './FeedbackOptions.styled';
+// import { Container, Section } from 'components';
 
-export const FeedbackOptions = ({
-  onCountPositive,
-  onCountNeutral,
-  onCountNegative,
-}) => (
-  <ControlsBox>
-    <Button type="button" onClick={onCountPositive}>
-      Good
-    </Button>
-    <Button type="button" onClick={onCountNeutral}>
-      Neutral
-    </Button>
-    <Button type="button" onClick={onCountNegative}>
-      Bad
-    </Button>
-  </ControlsBox>
-);
+
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return (
+    <section title={'Statistics'}>
+      <ControlsBox>
+        {options.map(feedback => {
+          return (
+            <li key={feedback}>
+              <Button onClick={() => onLeaveFeedback(feedback)}>
+                {feedback}
+              </Button>
+            </li>
+          );
+        })}
+      </ControlsBox>
+    </section>
+  );
+};
