@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const StatisticsBox = styled.div`
+export const StatisticsBox = styled.ul`
   // display: flex;
   // justify-content: center;
   margin-top: ${props => props.theme.spacing(3)};
@@ -8,7 +8,7 @@ export const StatisticsBox = styled.div`
   // gap: ${props => props.theme.spacing(2)};
 `;
 
-export const CardText = styled.p`
+export const StatisticsItem = styled.li`
   font-weight: 700;
   margin-top: ${props => props.theme.spacing(3)};
   letter-spacing: ${props => props.theme.spacing(0.2)};
