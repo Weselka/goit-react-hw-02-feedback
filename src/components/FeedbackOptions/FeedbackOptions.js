@@ -1,21 +1,24 @@
-import { ControlsBox, Button } from './FeedbackOptions.styled';
-// import { Container, Section } from 'components';
+import PropTypes from 'prop-types';
 
+import { ControlsBox, Button } from './FeedbackOptions.styled';
 
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
-    <section title={'Statistics'}>
-      <ControlsBox>
-        {options.map(feedback => {
-          return (
-            <li key={feedback}>
-              <Button onClick={() => onLeaveFeedback(feedback)}>
-                {feedback}
-              </Button>
-            </li>
-          );
-        })}
-      </ControlsBox>
-    </section>
+    <ControlsBox>
+      {options.map(optionState => {
+        return (
+          <li key={optionState}>
+            <Button onClick={() => onLeaveFeedback(optionState)}>
+              {optionState}
+            </Button>
+          </li>
+        );
+      })}
+    </ControlsBox>
   );
+};
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.array.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };

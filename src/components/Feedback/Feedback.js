@@ -1,11 +1,12 @@
 import { Component } from 'react';
 
-import { Card, CardHeader, CardTitle } from './Feedback.styled';
+import { Container, Section } from 'components';
+import { Card } from './Feedback.styled';
 import { FeedbackOptions } from 'components';
+import { Notification } from 'components';
 import { Statistics } from 'components';
 
-
-class Feedback extends Component {
+export class Feedback extends Component {
   // static defoultProps = {};
   // static propTypes = {};
 
@@ -15,10 +16,10 @@ class Feedback extends Component {
     bad: 0,
   };
 
-  onLeaveFeedback = feedback => {
+  onLeaveFeedback = optionState => {
     this.setState(prevState => {
       return {
-        [feedback]: prevState[feedback] + 1,
+        [optionState]: prevState[optionState] + 1,
       };
     });
   };
@@ -35,33 +36,39 @@ class Feedback extends Component {
 
   render() {
     const { good, neutral, bad } = this.state;
+    const {
+      state,
+      onLeaveFeedback,
+      countTotalFeedback,
+      countPositiveFeedbackPercentage,
+    } = this;
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Please leave feedback</CardTitle>
-        </CardHeader>
-        <FeedbackOptions
-          options={Object.keys(this.state)}
-          onLeaveFeedback={this.onLeaveFeedback}
-        />
-
-        <div>          
-          {good + neutral + bad === 0 ? (
-            <div message="There is no feedback"></div>
-          ) : (
-            <Statistics
-              title="Statistics"
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+        <Section title={'Please leave feedback'}>
+          <Container>
+            <FeedbackOptions
+              options={Object.keys(state)}
+              onLeaveFeedback={onLeaveFeedback}
             />
-          )}
-        </div>
+          </Container>
+        </Section>
+
+        <Section title={'Statistics'}>
+          <Container>
+            {good + neutral + bad === 0 ? (
+              <Notification message="There is no feedback"></Notification>
+            ) : (
+              <Statistics
+                good={good}
+                neutral={neutral}
+                bad={bad}
+                total={countTotalFeedback()}
+                positivePercentage={countPositiveFeedbackPercentage()}
+              />
+            )}
+          </Container>
+        </Section>
       </Card>
     );
   }
 }
-
-export default Feedback;
