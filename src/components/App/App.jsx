@@ -1,10 +1,13 @@
 import { Component } from 'react';
 
-import { Heading } from 'components';
-import { Container, Section } from 'components';
-import { FeedbackOptions } from 'components';
-import { Notification } from 'components';
-import { Statistics } from 'components';
+import {
+  Heading,
+  Container,
+  Section,
+  FeedbackOptions,
+  Notification,
+  Statistics,
+} from 'components';
 
 export class App extends Component {
   // static defoultProps = {};
