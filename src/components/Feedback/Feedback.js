@@ -55,7 +55,7 @@ export class Feedback extends Component {
 
         <Section title={'Statistics'}>
           <Container>
-            {good + neutral + bad === 0 ? (
+            {countTotalFeedback() === 0 ? (
               <Notification message="There is no feedback"></Notification>
             ) : (
               <Statistics
