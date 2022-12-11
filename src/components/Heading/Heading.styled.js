@@ -8,5 +8,4 @@ export const Heading = styled.h1`
   text-align: ${({ textAlign }) => (!textAlign ? 'left' : textAlign)};
   margin-top: ${({ marginTop }) => (!marginTop ? 0 : marginTop)};
   margin-bottom: ${({ marginBottom }) => (!marginBottom ? 0 : marginBottom)};
-  // position: relative;
 `;
