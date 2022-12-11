@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Heading,
@@ -10,8 +11,13 @@ import {
 } from 'components';
 
 export class App extends Component {
-  // static defoultProps = {};
-  // static propTypes = {};
+  static propTypes = {
+    feedback: PropTypes.shape({
+      good: PropTypes.number.isRequired,
+      neutral: PropTypes.number.isRequired,
+      bad: PropTypes.number.isRequired,
+    }),
+  };
 
   state = {
     good: 0,
@@ -39,12 +45,9 @@ export class App extends Component {
 
   render() {
     const { good, neutral, bad } = this.state;
-    const {
-      state,
-      onLeaveFeedback,
-      countTotalFeedback,
-      countPositiveFeedbackPercentage,
-    } = this;
+    const countTotal = this.countTotalFeedback();
+    const countPositiveFeedback = this.countPositiveFeedbackPercentage();
+
     return (
       <Container>
         <Heading marginBottom="50px" textAlign="center">
@@ -52,20 +55,20 @@ export class App extends Component {
         </Heading>
         <Section title={'Please leave feedback'}>
           <FeedbackOptions
-            options={Object.keys(state)}
-            onLeaveFeedback={onLeaveFeedback}
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
         <Section title={'Statistics'}>
-          {countTotalFeedback() === 0 ? (
+          {countTotal === 0 ? (
             <Notification message="There is no feedback"></Notification>
           ) : (
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={countTotalFeedback()}
-              positivePercentage={countPositiveFeedbackPercentage()}
+              total={countTotal}
+              positivePercentage={countPositiveFeedback}
             />
           )}
         </Section>
